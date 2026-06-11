@@ -1,16 +1,14 @@
 require_relative "lib/rspec/notifications/version"
-package = RSpec::Notifications
-package_name = "rspec-notifications"
 
 Gem::Specification.new do |s|
+  s.name        = "rspec-notifications"
+  s.version     = RSpec::Notifications::VERSION
   s.authors     = ["Daniel Pepper"]
   s.description = "RSpec matchers for ActiveSupport::Notifications"
   s.files       = `git ls-files * ':!:spec'`.split("\n")
-  s.homepage    = "https://github.com/dpep/#{package_name}"
+  s.homepage    = "https://github.com/dpep/rspec-notifications"
   s.license     = "MIT"
-  s.name        = package_name
-  s.summary     = package.to_s
-  s.version     = package.const_get "VERSION"
+  s.summary     = "RSpec::Notifications"
 
   s.required_ruby_version = ">= 3.2"
 
