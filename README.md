@@ -4,7 +4,7 @@ rspec-notifications
 [![codecov](https://codecov.io/gh/dpep/rspec-notifications/branch/main/graph/badge.svg)](https://codecov.io/gh/dpep/rspec-notifications)
 
 
-RSpec matchers for [`ActiveSupport::Notifications`](https://api.rubyonrails.org/classes/ActiveSupport/Notifications.html).
+RSpec matchers for [`ActiveSupport::Notifications`](https://api.rubyonrails.org/classes/ActiveSupport/Notifications.html)
 
 ```ruby
 require "rspec/notifications"
