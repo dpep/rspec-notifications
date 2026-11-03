@@ -126,7 +126,7 @@ module RSpec
         matched = @matching_events.size
 
         if @expected_payload && @events.any?
-          "#{pluralize(matched, "matching notification")} were emitted " \
+          "#{pluralize(matched, "matching notification")} #{matched == 1 ? "was" : "were"} emitted " \
             "(#{pluralize(@events.size, "notification")} matched the name)"
         elsif matched.zero?
           "no matching notifications were emitted"

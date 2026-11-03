@@ -48,6 +48,14 @@ describe "emit_notification" do
       }.to fail_including("emitted notifications:", "user_id")
     end
 
+    it "uses singular grammar for one matching notification" do
+      expect {
+        expect {
+          emit("user.created", user_id: 1)
+        }.to emit_notification("user.created").with(user_id: 1).twice
+      }.to fail_including("1 matching notification was emitted")
+    end
+
     it "explains a negated failure" do
       expect {
         expect { emit("user.created") }.not_to emit_notification("user.created")
