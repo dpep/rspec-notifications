@@ -97,6 +97,18 @@ describe "emit_notification" do
         emit("user.created", user: { id: 42, role: "admin" })
       }.to emit_notification("user.created").with(user: a_hash_including(id: 42))
     end
+
+    it "supports a matcher for the whole payload" do
+      expect {
+        emit("user.created", user_id: 42, name: "Ada")
+      }.to emit_notification("user.created").with(a_hash_including(user_id: 42))
+    end
+
+    it "matches a non-hash payload" do
+      expect {
+        ActiveSupport::Notifications.instrument("user.created", "raw") {}
+      }.to emit_notification("user.created").with("raw")
+    end
   end
 
   describe "count assertions" do
