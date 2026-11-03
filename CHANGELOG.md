@@ -4,6 +4,7 @@
 - counts must be non-negative Integers; `exactly("2")` and the like raise `ArgumentError` instead of silently never matching
 - using the matcher without a block (`expect(value).to emit_notification(...)`) is reported as unsupported
 - fix failure message grammar for a single matching notification
+- `.with(nil)` and `.with(false)` are checked against the payload instead of being ignored
 
 ## 0.1.0
 - initial release

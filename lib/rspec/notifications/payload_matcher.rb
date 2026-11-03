@@ -15,7 +15,6 @@ module RSpec
       module_function
 
       def matches?(expected, actual)
-        return true if expected.nil?
         return RSpec::Support::FuzzyMatcher.values_match?(expected, actual) unless expected.is_a?(Hash)
         return false unless actual.is_a?(Hash)
 

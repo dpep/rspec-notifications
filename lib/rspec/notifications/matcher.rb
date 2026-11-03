@@ -12,6 +12,7 @@ module RSpec
         end
 
         @pattern = pattern
+        @payload_expected = false
         @expected_payload = nil
         @count_type = nil
         @count = nil
@@ -20,6 +21,7 @@ module RSpec
       # --- chained expectations ------------------------------------------
 
       def with(payload)
+        @payload_expected = true
         @expected_payload = payload
         self
       end
@@ -54,7 +56,7 @@ module RSpec
       def matches?(block)
         @events = Subscriber.capture(subscribe_pattern, &block)
         @matching_events = @events.select do |event|
-          PayloadMatcher.matches?(@expected_payload, event.payload)
+          !@payload_expected || PayloadMatcher.matches?(@expected_payload, event.payload)
         end
 
         count_satisfied?(@matching_events.size)
@@ -74,7 +76,7 @@ module RSpec
 
       def description
         desc = "emit #{@pattern.inspect} notification"
-        desc += " with payload #{description_of(@expected_payload)}" if @expected_payload
+        desc += " with payload #{description_of(@expected_payload)}" if @payload_expected
         desc += " #{count_description}" if @count_type
         desc
       end
@@ -125,7 +127,7 @@ module RSpec
       def observed_summary
         matched = @matching_events.size
 
-        if @expected_payload && @events.any?
+        if @payload_expected && @events.any?
           "#{pluralize(matched, "matching notification")} #{matched == 1 ? "was" : "were"} emitted " \
             "(#{pluralize(@events.size, "notification")} matched the name)"
         elsif matched.zero?

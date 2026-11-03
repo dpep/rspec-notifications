@@ -112,6 +112,11 @@ describe "emit_notification" do
       }.to emit_notification("user.created").with(a_hash_including(user_id: 42))
     end
 
+    it "treats a nil or false expectation as a real expectation" do
+      expect { emit("user.created") }.not_to emit_notification("user.created").with(nil)
+      expect(emit_notification("user.created").with(false).description).to include("with payload false")
+    end
+
     it "matches a non-hash payload" do
       expect {
         ActiveSupport::Notifications.instrument("user.created", "raw") {}
