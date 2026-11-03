@@ -68,6 +68,10 @@ module RSpec
         true
       end
 
+      def supports_value_expectations?
+        false
+      end
+
       def description
         desc = "emit #{@pattern.inspect} notification"
         desc += " with payload #{description_of(@expected_payload)}" if @expected_payload

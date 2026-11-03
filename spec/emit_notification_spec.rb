@@ -225,6 +225,10 @@ describe "emit_notification" do
     end
   end
 
+  it "requires a block" do
+    expect(emit_notification("user.created")).not_to be_supports_value_expectations
+  end
+
   describe "captured event data" do
     it "exposes name, payload, timestamps, and transaction id" do
       events = RSpec::Notifications::Subscriber.capture("user.created") do
