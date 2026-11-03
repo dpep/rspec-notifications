@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.version     = RSpec::Notifications::VERSION
   s.authors     = ["Daniel Pepper"]
   s.description = "RSpec matchers for ActiveSupport::Notifications"
-  s.files       = `git ls-files * ':!:spec'`.split("\n")
+  s.files       = `git ls-files * ':!:spec' ':!:gemfiles'`.split("\n")
   s.homepage    = "https://github.com/dpep/rspec-notifications"
   s.license     = "MIT"
   s.summary     = "RSpec::Notifications"

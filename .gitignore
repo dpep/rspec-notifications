@@ -1,2 +1,5 @@
 *.gem
 coverage
+
+# per-gemfile lockfiles for the CI activesupport matrix
+/gemfiles/*.lock
