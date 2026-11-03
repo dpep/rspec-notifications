@@ -161,6 +161,18 @@ describe "emit_notification" do
       }.not_to emit_notification("user.created").at_most(2).times
     end
 
+    it "rejects a non-integer count" do
+      expect {
+        emit_notification("user.created").exactly("2")
+      }.to raise_error(ArgumentError, /count/)
+    end
+
+    it "rejects a negative count" do
+      expect {
+        emit_notification("user.created").at_least(-1)
+      }.to raise_error(ArgumentError, /count/)
+    end
+
     it "counts only payload-matching events" do
       expect {
         emit("user.created", user_id: 1)

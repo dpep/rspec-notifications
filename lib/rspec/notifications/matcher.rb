@@ -86,6 +86,10 @@ module RSpec
       private
 
       def set_count(type, count)
+        unless count.is_a?(Integer) && count >= 0
+          raise ArgumentError, "count must be a non-negative Integer, got #{count.inspect}"
+        end
+
         @count_type = type
         @count = count
         self
