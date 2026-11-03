@@ -63,6 +63,12 @@ module RSpec
       end
 
       def does_not_match?(block)
+        # Mirrors rspec-mocks: "not to emit once" reads as "never", so refuse it.
+        if @count_type
+          raise ArgumentError, "a count (#{count_description}) can't be used with not_to; " \
+                               "use `to` with a different count, or not_to without one"
+        end
+
         !matches?(block)
       end
 

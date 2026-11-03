@@ -133,9 +133,10 @@ describe "emit_notification" do
 
     it "fails .once when emitted twice" do
       expect {
-        emit("user.created")
-        emit("user.created")
-      }.not_to emit_notification("user.created").once
+        expect {
+          2.times { emit("user.created") }
+        }.to emit_notification("user.created").once
+      }.to fail_including("exactly 1 time, but it was emitted 2 times")
     end
 
     it "matches .twice" do
@@ -158,8 +159,10 @@ describe "emit_notification" do
 
     it "fails .at_least(n).times when too few" do
       expect {
-        emit("user.created")
-      }.not_to emit_notification("user.created").at_least(2).times
+        expect {
+          emit("user.created")
+        }.to emit_notification("user.created").at_least(2).times
+      }.to fail_including("at least 2 times, but it was emitted 1 time")
     end
 
     it "matches .at_most(n).times" do
@@ -170,8 +173,18 @@ describe "emit_notification" do
 
     it "fails .at_most(n).times when too many" do
       expect {
-        3.times { emit("user.created") }
-      }.not_to emit_notification("user.created").at_most(2).times
+        expect {
+          3.times { emit("user.created") }
+        }.to emit_notification("user.created").at_most(2).times
+      }.to fail_including("at most 2 times, but it was emitted 3 times")
+    end
+
+    it "refuses a count when negated" do
+      expect {
+        expect {
+          emit("user.created")
+        }.not_to emit_notification("user.created").once
+      }.to raise_error(ArgumentError, /count/)
     end
 
     it "rejects a non-integer count" do
