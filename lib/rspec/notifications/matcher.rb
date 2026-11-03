@@ -6,6 +6,11 @@ module RSpec
       include RSpec::Matchers::Composable
 
       def initialize(pattern)
+        pattern = pattern.to_s if pattern.is_a?(Symbol)
+        unless pattern.is_a?(String) || pattern.is_a?(Regexp)
+          raise ArgumentError, "notification name must be a String, Symbol, or Regexp, got #{pattern.inspect}"
+        end
+
         @pattern = pattern
         @expected_payload = nil
         @count_type = nil

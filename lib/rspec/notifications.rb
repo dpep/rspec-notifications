@@ -17,7 +17,7 @@ module RSpec
     #   expect { service.call }.to emit_notification("user.*")
     #   expect { service.call }.to emit_notification(/user\./)
     #
-    # +pattern+ may be an exact String, a String with "*" wildcards, or a Regexp.
+    # +pattern+ may be an exact String or Symbol, a String with "*" wildcards, or a Regexp.
     def emit_notification(pattern)
       RSpec::Notifications::Matcher.new(pattern)
     end

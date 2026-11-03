@@ -200,6 +200,17 @@ describe "emit_notification" do
         emit("userXcreated")
       }.not_to emit_notification("user.created")
     end
+
+    it "matches a Symbol name" do
+      expect {
+        emit("user.created")
+      }.to emit_notification(:"user.created")
+    end
+
+    it "rejects other name types" do
+      expect { emit_notification(nil) }.to raise_error(ArgumentError, /String, Symbol, or Regexp/)
+      expect { emit_notification(1) }.to raise_error(ArgumentError, /String, Symbol, or Regexp/)
+    end
   end
 
   describe "captured event data" do
