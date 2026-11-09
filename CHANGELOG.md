@@ -1,3 +1,6 @@
+## Unreleased
+- Requires Ruby 3.3 or newer.
+
 ## 0.1.1 (2026-11-02)
 - **breaking:** `not_to` with a count (`.once`, `.exactly(n)`, `.at_least(n)`, ...) now raises `ArgumentError`, as in rspec-mocks. It used to mean "not exactly once", so it passed when the notification fired repeatedly. Rewrite these as `to` with the count you expect.
 - `.with` accepts a matcher (e.g. `a_hash_including`) or a non-hash value, matched against the whole payload, instead of raising `NoMethodError`
